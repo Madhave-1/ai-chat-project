@@ -101,7 +101,7 @@ export default function ChatWindow({ chatId }) {
         </div>
       </header>
       <div className="flex-1 overflow-y-auto px-6 py-8 flex justify-center">
-        <div className="w-full max-w-[820px] flex flex-col gap-8 pb-32">
+        <div className="w-full max-w-[820px] flex flex-col gap-8">
           {messages.map((msg) => (
             msg.role === 'user' ? (
               <div key={msg.id} className="flex flex-col items-end gap-1.5 pl-12">
@@ -155,7 +155,7 @@ export default function ChatWindow({ chatId }) {
               </div>
             </div>
           )}
-          <div ref={messagesEndRef} />
+          <div ref={messagesEndRef} className="h-32 md:h-40 flex-shrink-0 w-full" />
         </div>
       </div>
       <div className="absolute bottom-6 inset-x-0 flex justify-center px-6 z-30 pointer-events-none">
