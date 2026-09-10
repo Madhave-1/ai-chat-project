@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from 'react'
 export default function ChatWindow({ chatId }) {
   const [input, setInput] = useState('')
+  const [isTyping, setIsTyping] = useState(false)
   const [messages, setMessages] = useState([
     { id: 1, role: 'ai', content: 'Hello! I am Nexus AI. How can I help you today?' },
   ])
@@ -45,6 +46,7 @@ export default function ChatWindow({ chatId }) {
     setMessages(prev => [...prev, { id: Date.now(), role: 'user', content: userMessage }]);
     setInput('');
     const token = localStorage.getItem("my_chat_token");
+    setIsTyping(true);
     try {
         const response = await fetch("https://my-ai-chat-backend-e401.onrender.com/chat/", {
             method: "POST",
@@ -63,6 +65,8 @@ export default function ChatWindow({ chatId }) {
         }
     } catch (error) {
         console.error("Failed to send message:", error);
+    } finally {
+        setIsTyping(false);
     }
   }
   const handleKeyDown = (e) => {
@@ -136,6 +140,21 @@ export default function ChatWindow({ chatId }) {
               </div>
             )
           ))}
+          {isTyping && (
+            <div className="flex flex-col items-start gap-2 pr-4">
+              <div className="flex items-center gap-2.5 font-label-sm text-label-sm text-outline ml-1">
+                <div className="w-5 h-5 rounded flex items-center justify-center bg-primary/10 border border-primary/30 text-primary">
+                  <span className="material-symbols-outlined text-[14px]" data-icon="neurology">neurology</span>
+                </div>
+                <span className="font-semibold text-on-surface">Nexus AI</span>
+              </div>
+              <div className="bg-surface-container-high/80 backdrop-blur-md rounded-2xl rounded-tl-[4px] border border-outline-variant/30 px-5 py-4 shadow-[0_8px_32px_-4px_rgba(11,19,38,0.6)] flex items-center gap-1.5 w-fit">
+                <div className="w-2 h-2 rounded-full bg-primary/60 animate-[bounce_1s_infinite_0ms]"></div>
+                <div className="w-2 h-2 rounded-full bg-primary/60 animate-[bounce_1s_infinite_200ms]"></div>
+                <div className="w-2 h-2 rounded-full bg-primary/60 animate-[bounce_1s_infinite_400ms]"></div>
+              </div>
+            </div>
+          )}
           <div ref={messagesEndRef} />
         </div>
       </div>
