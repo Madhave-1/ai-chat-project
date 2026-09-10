@@ -16,7 +16,7 @@ export default function Sidebar({ onLogout, onNewChat, onSelectChat, currentChat
         const token = localStorage.getItem("my_chat_token");
         if (!token) return;
         try {
-            const response = await fetch("http://127.0.0.1:8000/chat/history", {
+            const response = await fetch("https://my-ai-chat-backend-e401.onrender.com/chat/history", {
                 method: "GET",
                 headers: {
                     "Authorization": `Bearer ${token}`

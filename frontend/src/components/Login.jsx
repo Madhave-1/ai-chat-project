@@ -5,27 +5,27 @@ export default function Login({ onLogin }) {
   const [isSignUp, setIsSignUp] = useState(false)
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const endpoint = isSignUp ? "http://127.0.0.1:8000/auth/signup" : "http://127.0.0.1:8000/auth/login";
+    const endpoint = isSignUp ? "https://my-ai-chat-backend-e401.onrender.com/auth/signup" : "https://my-ai-chat-backend-e401.onrender.com/auth/login";
     const response = await fetch(endpoint, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email: email, password: password })
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email: email, password: password })
     });
     const data = await response.json();
     if (response.ok) {
-        if (isSignUp) {
-            alert("Account created successfully! Please sign in.");
-            setIsSignUp(false);
-            setPassword(""); 
-        } else {
-            localStorage.setItem("my_chat_token", data.access_token);
-            console.log("Logged in successfully!");
-            onLogin();
-        }
+      if (isSignUp) {
+        alert("Account created successfully! Please sign in.");
+        setIsSignUp(false);
+        setPassword("");
+      } else {
+        localStorage.setItem("my_chat_token", data.access_token);
+        console.log("Logged in successfully!");
+        onLogin();
+      }
     } else {
-        alert(data.detail);
+      alert(data.detail);
     }
-}
+  }
   return (
     <div className="flex items-center justify-center min-h-screen relative overflow-hidden bg-[#0b0f19]">
       <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-blue-600/20 rounded-full blur-[120px] pointer-events-none"></div>

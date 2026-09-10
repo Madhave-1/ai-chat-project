@@ -16,7 +16,7 @@ export default function ChatWindow({ chatId }) {
       const token = localStorage.getItem("my_chat_token");
       if (!token || !chatId) return;
       try {
-        const response = await fetch(`http://127.0.0.1:8000/chat/${chatId}`, {
+        const response = await fetch(`https://my-ai-chat-backend-e401.onrender.com/chat/${chatId}`, {
           method: "GET",
           headers: {
             "Authorization": `Bearer ${token}`
@@ -46,7 +46,7 @@ export default function ChatWindow({ chatId }) {
     setInput('');
     const token = localStorage.getItem("my_chat_token");
     try {
-        const response = await fetch("http://127.0.0.1:8000/chat/", {
+        const response = await fetch("https://my-ai-chat-backend-e401.onrender.com/chat/", {
             method: "POST",
             headers: { 
                 "Content-Type": "application/json",
