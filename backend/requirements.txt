@@ -6,3 +6,5 @@ bcrypt
 pyjwt
 google-generativeai
 pydantic
+httpx
+certifi
